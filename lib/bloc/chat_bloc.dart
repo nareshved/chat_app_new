@@ -9,9 +9,9 @@ import 'chat_states.dart';
 
 class ChatBloc extends Bloc<ChatEvents, ChatStates>{
 
-  FirebaseProvider firebaseProvider;
+ // FirebaseProvider firebaseProvider;
 
-  ChatBloc({required this.firebaseProvider}) : super(ChatIntitalState()){
+  ChatBloc() : super(ChatIntitalState()){
 
     on<CreateUserEvent>((event, emit) async {
 
@@ -19,7 +19,7 @@ class ChatBloc extends Bloc<ChatEvents, ChatStates>{
 
       emit(RegisterLoadingState());
 
-      await firebaseProvider.createUser(event.newUser, event.password );
+      await FirebaseProvider().createUser(event.email, event.password );
 
       emit(RegisterLoadedState());
 
@@ -41,7 +41,7 @@ class ChatBloc extends Bloc<ChatEvents, ChatStates>{
 
       emit(RegisterLoadingState());
 
-      await firebaseProvider.loginUser(email: event.loginEmail, mPassord: event.loginPassword);
+      await FirebaseProvider().loginUser(email: event.loginEmail, mPassord: event.loginPassword);
       
       emit(RegisterLoadedState());
       }
@@ -52,8 +52,6 @@ class ChatBloc extends Bloc<ChatEvents, ChatStates>{
         log("error loginUser event in bloc $e.toString()");
       }
     });
-
-
 
 
     on<LogOutUserEvent>((event, emit) async{

@@ -7,10 +7,12 @@ abstract class ChatEvents {}
 
 class CreateUserEvent extends ChatEvents{
 
-  UserModel newUser;
+  // UserModel newUser;
+  String email;
   String password;
 
-  CreateUserEvent({required this.newUser, required this.password});
+  CreateUserEvent({required this.email
+    , required this.password});
 }
 
 class LoginUserEvent extends ChatEvents{

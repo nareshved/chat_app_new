@@ -1,8 +1,25 @@
 import 'package:chat_app_new/pages/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'bloc/chat_bloc.dart';
+import 'firebase_options.dart';
+import 'firebase_provider/firebase_provider.dart';
+
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+
+  runApp(MultiBlocProvider(
+      providers:  [
+
+        BlocProvider(create: (context) => ChatBloc(),)
+      ],
+
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -54,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDHmpVW4lcuEyqG4cQl118UX3nQISD_StE',
-    appId: '1:948860137355:android:e7ce2e2a25cdf6cad5898e',
+    appId: '1:948860137355:android:793cef178b366cb4d5898e',
     messagingSenderId: '948860137355',
     projectId: 'wachat-nk',
     storageBucket: 'wachat-nk.appspot.com',
@@ -62,19 +59,29 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAu6xZG1iDlkN1RwYV_pssX3SSplBtsCdQ',
-    appId: '1:948860137355:ios:6148714b6b1ca502d5898e',
+    appId: '1:948860137355:ios:2835c03541176918d5898e',
     messagingSenderId: '948860137355',
     projectId: 'wachat-nk',
     storageBucket: 'wachat-nk.appspot.com',
-    iosBundleId: 'com.example.wachat',
+    iosBundleId: 'com.example.chatAppNew',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAu6xZG1iDlkN1RwYV_pssX3SSplBtsCdQ',
-    appId: '1:948860137355:ios:f28cd07295ef809ad5898e',
+    appId: '1:948860137355:ios:2835c03541176918d5898e',
     messagingSenderId: '948860137355',
     projectId: 'wachat-nk',
     storageBucket: 'wachat-nk.appspot.com',
-    iosBundleId: 'com.example.wachat.RunnerTests',
+    iosBundleId: 'com.example.chatAppNew',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDB8JPwsag4uAuAG09Y2VqEsiXF5q8Qdao',
+    appId: '1:948860137355:web:3e97192179ff2b66d5898e',
+    messagingSenderId: '948860137355',
+    projectId: 'wachat-nk',
+    authDomain: 'wachat-nk.firebaseapp.com',
+    storageBucket: 'wachat-nk.appspot.com',
+  );
+
 }

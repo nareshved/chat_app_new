@@ -15,7 +15,9 @@ import 'login.dart';
 
 // ignore: must_be_immutable
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key,});
+  const SignUpPage({
+    super.key,
+  });
 
   static final signUpFormKey = GlobalKey<FormState>();
 
@@ -24,8 +26,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
-   File? profilePic;
+  File? profilePic;
 
   final TextEditingController nameController = TextEditingController();
 
@@ -65,28 +66,24 @@ class _SignUpPageState extends State<SignUpPage> {
                   InkWell(
                     onTap: () {
                       // calling class UserProfileState
-                          userPic(ImageSource.gallery,_updateProfilePic);              
+                      userPic(ImageSource.gallery, _updateProfilePic);
                     },
-                    
-                    child:profilePic != null ?  CircleAvatar(
-                      
-              
-                    backgroundImage: FileImage(profilePic!)
-                  ,radius: 45,
-                  
-                    ) : const CircleAvatar(
-                      radius: 45,
-                     backgroundColor: Colors.grey,
-                    ),
-
-                  
+                    child: profilePic != null
+                        ? CircleAvatar(
+                            backgroundImage: FileImage(profilePic!),
+                            radius: 45,
+                          )
+                        : const CircleAvatar(
+                            radius: 45,
+                            backgroundColor: Colors.grey,
+                          ),
                   ),
                   SizedBox(height: mq.height * 0.025),
                   mTextFormField(
                       myValidator: (value) {
                         if (value!.isEmpty) {
                           return "this field is required dont empty";
-                        } 
+                        }
                       },
                       hint: "enter your name",
                       keyboard: TextInputType.text,
@@ -123,9 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               log("saved female to var $genderSave");
                             });
                           }),
-
-
-                          const Text("other"),
+                      const Text("other"),
                       Radio.adaptive(
                           value: genderOptionList[2],
                           groupValue: selectedGender,
@@ -144,7 +139,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       myValidator: (value) {
                         if (value!.isEmpty) {
                           return "your email is required";
-                        } 
+                        }
                       },
                       hint: "enter a email",
                       keyboard: TextInputType.emailAddress,
@@ -159,7 +154,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         return "password is required";
                       } else if (value.length < 6) {
                         return "at least password length is 6";
-                      } 
+                      }
                     },
                     hint: "enter a password",
                     keyboard: TextInputType.text,
@@ -175,7 +170,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           return "phone number is required";
                         } else if (value.length <= 9) {
                           return "not valid mobile number";
-                        } 
+                        }
                       },
                       hint: "mobile number",
                       keyboard: TextInputType.phone,
@@ -188,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       myValidator: (value) {
                         if (value!.isEmpty) {
                           return "enter home address";
-                        } 
+                        }
                       },
                       hint: "home address",
                       keyboard: TextInputType.streetAddress,
@@ -196,76 +191,76 @@ class _SignUpPageState extends State<SignUpPage> {
                       mcColor: Colors.white70,
                       mcBorder: BorderRadius.circular(12),
                       mWidth: mq.width),
-                      SizedBox(height: mq.height * 0.025),
+                  SizedBox(height: mq.height * 0.025),
                   SizedBox(
-                    //  width: mq.width,
+                      //  width: mq.width,
                       child: BlocConsumer<ChatBloc, ChatStates>(
+                          listener: (context, state) {
+                    if (state is RegisterLoadedState) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ));
+                    } else if (state is RegisterErrorState) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(state.errorMsg)));
+                    }
+                  }, builder: (context, state) {
+                    if (state is RegisterLoadingState) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-                        listener: (context, state) {
-                          if(state is RegisterLoadedState){
+                    return mcButton(
+                        name: "SignUp",
+                        onTap: () async {
+                          if (SignUpPage.signUpFormKey.currentState!
+                              .validate()) {
+                            if (nameController.text.trim().isNotEmpty &&
+                                emailController.text.trim().isNotEmpty &&
+                                passController.text.trim().isNotEmpty &&
+                                phoneController.text.trim().isNotEmpty &&
+                                homeAddressController.text.trim().isNotEmpty) {
+                              // email id for unique folder name for profile pic otherwise uuid package use niche child
+                              final savedPic = await FirebaseProvider
+                                  .firebaseStorage
+                                  .child("profilePic")
+                                  .child(emailController.text.trim().toString())
+                                  .putFile(profilePic!);
 
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(),));
-                          }  
-                          else if (state is RegisterErrorState){
+                              final downloadImgUrl =
+                                  await savedPic.ref.getDownloadURL();
 
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errorMsg)));
+                              log("signup btn pressed!!!");
+                              final createdUser = UserModel(
+                                  emailAddress: emailController.text.toString(),
+                                  name: nameController.text.toString(),
+                                  password: passController.text.toString(),
+                                  mobNo: phoneController.text.toString(),
+                                  gender: genderSave,
+                                  userId: FirebaseProvider
+                                      .firebaseAuth.currentUser!.uid,
+                                  isOnline: false,
+                                  accountStatus: 1,
+                                  profilePicUrl: downloadImgUrl,
+                                  profileStatus: 1);
+
+                              /// firebase signup
+                              ///
+                              BlocProvider.of<ChatBloc>(context).add(
+                                  CreateUserEvent(
+                                      email: emailController.text.toString(),
+                                      password:
+                                          passController.text.toString()));
+
+                              /// firebase signup
+
+                            }
                           }
-
-                        },
-
-                        builder: (context, state) {
-                          if(state is RegisterLoadingState){
-                            return const Center(child: CircularProgressIndicator(),);
-                          }
-
-                          return mcButton(
-                              
-                                  name: "SignUp",
-                                  onTap: () async {
-                                    if (SignUpPage.signUpFormKey.currentState!
-                                        .validate()) {
-                                      if (nameController.text.trim().isNotEmpty &&
-                                          emailController.text.trim().isNotEmpty &&
-                                          passController.text.trim().isNotEmpty &&
-                                          phoneController.text.trim().isNotEmpty &&
-                                          homeAddressController.text.trim().isNotEmpty) {
-                              
-                              
-                                             // email id for unique folder name for profile pic otherwise uuid package use niche child
-                                        final savedPic =  await FirebaseProvider.firebaseStorage.child("profilePic").child(emailController.text.trim().toString()).putFile(profilePic!);
-                              
-                                        final downloadImgUrl = await savedPic.ref.getDownloadURL();
-                                       
-                                        
-                                      final createdUser =  UserModel(emailAddress: emailController.text.toString(), 
-                                        name: nameController.text.toString(), 
-                                        password: passController.text.toString(), 
-                                        mobNo: phoneController.text.toString(), 
-                                        gender: genderSave, 
-                                        userId: FirebaseProvider.firebaseAuth.currentUser!.uid, 
-                                        isOnline: false, 
-                                        accountStatus: 1, 
-                                        profilePicUrl: downloadImgUrl, 
-                                        profileStatus: 1
-                                        );
-                              
-                                        /// firebase signup
-                                        /// 
-                                        BlocProvider.of<ChatBloc>(context).add(CreateUserEvent(newUser: createdUser
-                                        , password: passController.text.toString()));
-                                         /// firebase signup
-                              
-                          
-                                       log("signup btn pressed!!!");
-                          
-                                      }
-                                    }  
-                                  });
-                        }
-                      )
-
-                              
-                      ),
+                        });
+                  })),
                 ],
               ),
             ),
@@ -275,44 +270,12 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
- void _updateProfilePic(File newImage){
-  setState(() {
-    profilePic = newImage;
-  });
- }
-
-
+  void _updateProfilePic(File newImage) {
+    setState(() {
+      profilePic = newImage;
+    });
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // SizedBox(
 //                       width: mq.width,
@@ -326,22 +289,21 @@ class _SignUpPageState extends State<SignUpPage> {
 //                                   passController.text.trim().isNotEmpty &&
 //                                   phoneController.text.trim().isNotEmpty &&
 //                                   homeAddressController.text.trim().isNotEmpty) {
-                               
-                                
-//                               final createdUser =  UserModel(emailAddress: emailController.text.toString(), 
-//                                 name: nameController.text.toString(), 
-//                                 password: passController.text.toString(), 
-//                                 mobNo: phoneController.text.toString(), 
-//                                 gender: genderSave, 
-//                                 userId: FirebaseProvider.firebaseAuth.currentUser!.uid, 
-//                                 isOnline: false, 
-//                                 accountStatus: 1, 
-//                                 profilePicUrl: "added soon....", 
+
+//                               final createdUser =  UserModel(emailAddress: emailController.text.toString(),
+//                                 name: nameController.text.toString(),
+//                                 password: passController.text.toString(),
+//                                 mobNo: phoneController.text.toString(),
+//                                 gender: genderSave,
+//                                 userId: FirebaseProvider.firebaseAuth.currentUser!.uid,
+//                                 isOnline: false,
+//                                 accountStatus: 1,
+//                                 profilePicUrl: "added soon....",
 //                                 profileStatus: 1
 //                                 );
 
 //                                 /// firebase signup
-//                                 /// 
+//                                 ///
 //                                 BlocProvider.of<ChatBloc>(context).add(CreateUserEvent(newUser: createdUser
 //                                 , password: passController.text.toString()));
 //                                  /// firebase signup
@@ -349,7 +311,6 @@ class _SignUpPageState extends State<SignUpPage> {
 //                               }
 //                             }
 //                           })),
-
 
 //  child: mcButton(
 //                           name: "SignUp",

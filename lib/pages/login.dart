@@ -41,7 +41,7 @@ class LoginPage extends StatelessWidget {
                   mTextFormField(
                       myValidator: (value) {
                         if (value!.isEmpty) {
-                          return "this field is required dont empty";
+                          return "this field is required don't empty";
                         } 
                       },
                       hint: "enter your email",

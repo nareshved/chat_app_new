@@ -27,30 +27,28 @@ class FirebaseProvider {
 
   static const String collectionPasswords = "users passwords";   // for me optional
 
-   
-   
-  
+   UserModel? user;
 
-  Future<void> createUser(UserModel cUser, String mPassord) async {
+  Future<void> createUser(String email, String mPassord) async {
   
   try {
 
     final UserCredential credential = await firebaseAuth.createUserWithEmailAndPassword
-    (email: cUser.emailAddress, password: mPassord);
+    (email: email, password: mPassord);
 
 
    if(credential.user != null ) {
 
      fireBaseFireStore.collection(userCollection)
-    .doc(credential.user!.uid).set(cUser.toDoc());
+    .doc(credential.user!.uid).set(user!.toDoc());
 
 
     /// second collection optional
     
     fireBaseFireStore.collection(collectionPasswords).
     doc(credential.user!.uid).set({
-      "name" : cUser.name,
-      "password" : cUser.password
+      "name" : user!.name,
+      "password" : user!.password
     });
 
 
