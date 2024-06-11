@@ -42,7 +42,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDB8JPwsag4uAuAG09Y2VqEsiXF5q8Qdao',
-    appId: '1:948860137355:web:5ad619223a2f4bbbd5898e',
+    appId: '1:948860137355:web:3e97192179ff2b66d5898e',
     messagingSenderId: '948860137355',
     projectId: 'wachat-nk',
     authDomain: 'wachat-nk.firebaseapp.com',
@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDHmpVW4lcuEyqG4cQl118UX3nQISD_StE',
-    appId: '1:948860137355:android:793cef178b366cb4d5898e',
+    appId: '1:948860137355:android:270136c66259a593d5898e',
     messagingSenderId: '948860137355',
     projectId: 'wachat-nk',
     storageBucket: 'wachat-nk.appspot.com',

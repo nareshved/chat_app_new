@@ -22,6 +22,7 @@ class ChatBloc extends Bloc<ChatEvents, ChatStates>{
       await FirebaseProvider().createUser(event.email, event.password );
 
       emit(RegisterLoadedState());
+      log("error msg in create user Bloc .toString()");
 
       }
 

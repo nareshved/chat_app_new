@@ -35,7 +35,7 @@ class FirebaseProvider {
 
     final UserCredential credential = await firebaseAuth.createUserWithEmailAndPassword
     (email: email, password: mPassord);
-
+    log("found user is null in firebase ");
 
    if(credential.user != null ) {
 
@@ -50,7 +50,7 @@ class FirebaseProvider {
       "name" : user!.name,
       "password" : user!.password
     });
-
+     log("found user  firebase provider");
 
 
   }

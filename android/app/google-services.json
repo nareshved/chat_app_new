@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "948860137355",
+    "project_id": "wachat-nk",
+    "storage_bucket": "wachat-nk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948860137355:android:270136c66259a593d5898e",
+        "android_client_info": {
+          "package_name": "com.example.chat_app_new"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHmpVW4lcuEyqG4cQl118UX3nQISD_StE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948860137355:android:793cef178b366cb4d5898e",
+        "android_client_info": {
+          "package_name": "com.example.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHmpVW4lcuEyqG4cQl118UX3nQISD_StE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948860137355:android:e7ce2e2a25cdf6cad5898e",
+        "android_client_info": {
+          "package_name": "com.example.wachat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHmpVW4lcuEyqG4cQl118UX3nQISD_StE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
