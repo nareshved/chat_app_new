@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/chat_bloc.dart';
 import 'firebase_options.dart';
-import 'firebase_provider/firebase_provider.dart';
 
 void main() async {
 
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Chatbook',
       theme: ThemeData(
         // This is the theme of your application.
         //
