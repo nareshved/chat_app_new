@@ -1,67 +1,49 @@
+
 class UserModel {
-  String name;
-  String emailAddress;
-  String password;
-// num phoneNumber;
-  String? homeAddress;
-  String userId;      /// assign to from firebase > credential.user!.uid
+  String? userId;
+  String? name;
+  String? email;
   String? mobNo;
   String? gender;
   bool isOnline = false;
-  int? accountStatus = 1;   //1-> Active, 2->inActive, 3->Suspended
-  String? profilePicUrl = "";
+  int? status = 1; //1-> Active, 2->inActive, 3->Suspended
+  String? profilePic = "";
   int? profileStatus = 1;
 
-  UserModel(
-      {required this.emailAddress,
-      this.homeAddress,
+  UserModel({
+      this.userId,
       required this.name,
-      required this.password,
+      required this.email,
       required this.mobNo,
       required this.gender,
-      required this.userId,
       required this.isOnline,
-      required this.accountStatus,
-      required this.profilePicUrl,
-      required this.profileStatus});
+      required this.status,
+      required this.profilePic,
+      required this.profileStatus}); //1-> public, 2->private, 3->onlyFriends
 
-// firenase model me map se map    from doc to model
 
-  factory UserModel.fromDoc(Map<String, dynamic> documents) {
+
+  factory UserModel.fromDoc(Map<String, dynamic> document) {
     return UserModel(
-        userId: documents["userId"],
-
-        /// get from firebase > credential.user!.uid
-        emailAddress: documents["emailAddress"],
-        accountStatus: documents["accountStatus"],
-        isOnline: documents["isOnline"],
-        profilePicUrl: documents["profilePicUrl"],
-        profileStatus: documents["profileStatus"],
-        homeAddress: documents["homeAddress"],
-        name: documents["name"],
-        password: documents["password"],
-        mobNo: documents["mobNo"],
-        gender: documents["gender"]);
+      name: document['name'],
+      email: document['email'],
+      mobNo: document['mobNo'],
+      gender: document['gender'],
+      isOnline: document['isOnline'],
+      status: document['status'],
+      profilePic: document['profilePic'],
+      profileStatus: document['profileStatus'],
+    );
   }
 
-// creating for firebase doc data in map via model  model to map
-
-  Map<String, dynamic> toDoc() {
-    return {
-      "emailAddress": emailAddress,
-      "homeAddress": homeAddress,
-      "name": name,
-      "password": password,
-      "mobNo": mobNo,
-      "gender": gender,
-
-      "userId": userId,
-
-      /// get from firebase > credential.user!.uid
-      "accountStatus": accountStatus,
-      "isOnline": isOnline,
-      "profilePicUrl": profilePicUrl,
-      "profileStatus": profileStatus,
-    };
-  }
+  Map<String, dynamic> toDoc() => {
+    "name" : name,
+    "email" : email,
+    "mobNo" : mobNo,
+    "gender" : gender,
+    "isOnline" : isOnline,
+    "status" : status,
+    "profilePic" : profilePic,
+    "profileStatus" : profileStatus,
+  };
 }
