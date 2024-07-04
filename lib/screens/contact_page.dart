@@ -1,4 +1,7 @@
 
+import 'dart:developer';
+
+import 'package:chat_app_new/bloc/users/user_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,8 +9,20 @@ import '../bloc/users/user_bloc.dart';
 import '../bloc/users/user_states.dart';
 
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
+
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<UserBloc>(context).add(ContactsUserEvent());
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +33,8 @@ class ContactPage extends StatelessWidget {
 
       body: BlocBuilder<UserBloc, UserStates>(
         builder: (context, state) {
+            log(state.toString());
+
         if(state is UserLoadingState){
           return const Center(child: CircularProgressIndicator());
         } 
@@ -25,26 +42,28 @@ class ContactPage extends StatelessWidget {
         else if(state is UserErrorState) {
           return Text(state.errorMsg);
         }
-        else if(state is UserLoadedState) {
-
-        // Future<QuerySnapshot<Map<String, dynamic>>> allUsers =  FirebaseProvider.contactsFromFirebase();
-          // List<Contact model> = all;
+        else if(state is UserLoadedState){
 
           return ListView.builder(
             itemCount: 22,
             itemBuilder: (context, index) {
             
-              return   ListTile(
-            title: Text("${state.allusers[index].email}")
-              );
+
+            
+              return ListTile();
             },
             );
         }
+
+  log(state.toString());
+        
         return const Center(child: Text("error found in bloc"));
       }    
       )
     );
   }
+
+  
 }
 
 

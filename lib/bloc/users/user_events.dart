@@ -6,7 +6,7 @@ abstract class UserEvents{}
 
 
 class ContactsUserEvent extends UserEvents {
-  List<ContactModel> allContacts;
+  List<ContactModel>? allContacts;
 
-  ContactsUserEvent({required this.allContacts});
+  ContactsUserEvent({ this.allContacts});
 }

@@ -1,4 +1,4 @@
-import 'package:chat_app_new/bloc/users/user_bloc.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,26 +13,16 @@ import 'login.dart';
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
+///my app pe bloc provider
+///
+///
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 
   static Widget builder(){
     return RepositoryProvider(
       create: (context) => FirebaseProvider(),
-      child: MultiBlocProvider(
-        providers: [
-
-       BlocProvider(create: (context) => ChatBloc(
-            firebaseProvider: RepositoryProvider.of<FirebaseProvider>(context), context: context),),
-
-            BlocProvider(create: (context) => UserBloc(firebaseProvider: FirebaseProvider(), context: context),)
-
-        ],
-      
-
-
-        child: const SignUpPage(),
-      ),
+      child: const SignUpPage(),
     );
   }
 

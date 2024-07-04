@@ -1,5 +1,5 @@
 
-import '../../models/contact_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class UserStates {}
 
@@ -9,8 +9,7 @@ class UserInitialState extends UserStates {}
 class UserLoadingState extends UserStates {}
 
 class UserLoadedState extends UserStates {
-  List<ContactModel> allusers;
-
+  Future<QuerySnapshot<Map<String, dynamic>>> allusers;
   UserLoadedState({required this.allusers});
 }
 

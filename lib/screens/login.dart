@@ -88,7 +88,7 @@ class LoginPageState extends State<LoginPage> {
                                 email: email, password: password);
 
                             var prefs = await SharedPreferences.getInstance();
-                            prefs.setString(LOGIN_PREFS_KEY, credential.user!.uid);
+                            prefs.setString(LoginPageState.LOGIN_PREFS_KEY, credential.user!.uid);
 
 
 

@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 Widget myTextField ({
@@ -23,3 +24,55 @@ Widget myTextField ({
     ),
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// customCheckStream(
+//     {required String decument,
+//     required String whatYouNeed,
+//     required String mainCollection,}) {
+//   return StreamBuilder<DocumentSnapshot>(
+//     stream: FirebaseFirestore.instance
+//         .collection(mainCollection)
+//         .doc(decument)
+//         .snapshots(),
+//     builder: (context, snapshot) {
+//       if (snapshot.connectionState == ConnectionState.waiting) {
+//         return const CircularProgressIndicator(
+//           strokeWidth: 1,
+//         );
+//       } else if (snapshot.hasError) {
+//         return Text('Error: ${snapshot.error}');
+//       } else if (!snapshot.hasData || !snapshot.data!.exists) {
+//         return const Text('No user data found');
+//       }
+
+//       var userData = snapshot.data!.data() as Map<String, dynamic>?;
+//       if (userData == null || !userData.containsKey(whatYouNeed)) {
+//         return const Text('No user data found');
+//       }
+
+//       var checkData = userData[whatYouNeed];
+
+//       return Text(
+//         checkData != null ? checkData.toString() : 'Data not found',
+    
+//       );
+//     },
+//   );
+// }

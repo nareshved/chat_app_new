@@ -17,17 +17,18 @@ class UserBloc extends Bloc<UserEvents, UserStates> {
   
   
    on<ContactsUserEvent>((event, emit) async {
-      Future<QuerySnapshot<Map<String, dynamic>>> contactsFromFirebase () async {
-   return FirebaseFirestore.instance
-            .collection("users").get();
-  }
+      
 
      try{
 
       emit(UserLoadingState());
 
+Future<QuerySnapshot<Map<String, dynamic>>> contactsFromFirebase () async {
+   return FirebaseFirestore.instance
+            .collection("users").get();
+  }
       emit(UserLoadedState(
-        allusers: contactsFromFirebase as List<ContactModel>
+         allusers: contactsFromFirebase()
       ),);
       
       }
